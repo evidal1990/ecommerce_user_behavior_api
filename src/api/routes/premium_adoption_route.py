@@ -10,49 +10,35 @@ from src.services.premium_adoption_service import (
 router = APIRouter(prefix="/premium-adoption", tags=["Premium Adoption"])
 
 
-@router.get("/by-country")
-def premium_adoption_by_country():
+def _execute_or_http_error(handler):
     try:
-        return list_by_country()
+        return handler()
     except ValueError as exc:
-        raise HTTPException(status_code=400, detail=str(exc)) from exc
+        raise HTTPException(status_code=400, detail=str(exc),) from exc
     except Exception as exc:
         raise HTTPException(status_code=500, detail="Internal server error") from exc
+
+
+@router.get("/by-country")
+def premium_adoption_by_country():
+    return _execute_or_http_error(list_by_country)
 
 
 @router.get("/by-age-group")
 def premium_adoption_by_age_group():
-    try:
-        return list_by_age_group()
-    except ValueError as exc:
-        raise HTTPException(status_code=400, detail=str(exc)) from exc
-    except Exception as exc:
-        raise HTTPException(status_code=500, detail="Internal server error") from exc
+    return _execute_or_http_error(list_by_age_group)
 
 
 @router.get("/by-annual-income-group")
 def premium_adoption_by_annual_income():
-    try:
-        return list_by_annual_income_group()
-    except ValueError as exc:
-        raise HTTPException(status_code=400, detail=str(exc)) from exc
-    except Exception as exc:
-        raise HTTPException(status_code=500, detail="Internal server error") from exc
+    return _execute_or_http_error(list_by_annual_income_group)
+
 
 @router.get("/by-education-level")
 def premium_adoption_by_education_level():
-    try:
-        return list_by_education_level()
-    except ValueError as exc:
-        raise HTTPException(status_code=400, detail=str(exc)) from exc
-    except Exception as exc:
-        raise HTTPException(status_code=500, detail="Internal server error") from exc
+    return _execute_or_http_error(list_by_education_level)
+
 
 @router.get("/by-device-type")
 def premium_adoption_by_device_type():
-    try:
-        return list_by_device_type()
-    except ValueError as exc:
-        raise HTTPException(status_code=400, detail=str(exc)) from exc
-    except Exception as exc:
-        raise HTTPException(status_code=500, detail="Internal server error") from exc
+    return _execute_or_http_error(list_by_device_type)
