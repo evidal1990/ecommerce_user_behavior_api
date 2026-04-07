@@ -2,7 +2,10 @@ from src.core.database import get_connection
 from textwrap import dedent
 
 
-def get_by_dimension(dimension: str):
+def get_by_dimension(
+    kpi_name: str,
+    dimension: str,
+):
     conn = None
     cur = None
     try:
@@ -12,29 +15,23 @@ def get_by_dimension(dimension: str):
         query = dedent(
             """
             select
-                dimensions ->>%s as dimension,
+                dimension_value,
                 kpi_type,
-                SUM(kpi_value) as value
+                kpi_value
             from
                 kpis
             where
-                kpi_name = 'premium_adoption'
-                and dimensions ->>%s is not null
-                and dimensions ->>%s <> ''
-            group by
-                dimensions ->>%s,
-                kpi_type
+                kpi_name = %s
+                and dimension_name = %s  
             order by
-                value desc
+                dimension_name
             """
         )
 
         cur.execute(
             query,
             (
-                dimension,
-                dimension,
-                dimension,
+                kpi_name,
                 dimension,
             ),
         )
