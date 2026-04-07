@@ -2,9 +2,7 @@ from src.core.database import get_connection
 from textwrap import dedent
 
 
-def get_by_dimension(
-    dimension: str,
-):
+def get_by_dimension(dimension: str):
     conn = None
     cur = None
     try:
@@ -20,7 +18,7 @@ def get_by_dimension(
             from
                 kpis
             where
-                kpi_name = 'avg_daily_session_time_in_mninutes'
+                kpi_name = 'avg_app_usage_frequency_per_week_in_days'
                 and dimension_name = %s  
             order by
                 dimension_value
