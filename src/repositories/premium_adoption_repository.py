@@ -12,16 +12,16 @@ def get_by_dimension(dimension: str):
         query = dedent(
             """
             select
-                dimensions ->>'country' as country,
+                dimensions ->>%s as dimension,
                 SUM(kpi_value) as value
             from
                 kpis
             where
                 kpi_name = 'premium_adoption'
-                and dimensions ->>'country' is not null
-                and dimensions ->>'country' <> ''
+                and dimensions ->>%s is not null
+                and dimensions ->>%s <> ''
             group by
-                dimensions ->>'country'
+                dimensions ->>%s
             order by
                 value desc
             """
