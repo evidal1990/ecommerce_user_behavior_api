@@ -1,4 +1,4 @@
-from src.repositories.avg_app_usage_frequency_repository import get_by_dimension
+from src.repositories.avg_product_views_repository import get_by_dimension
 
 
 def _list_by_dimension(dimension: str):
