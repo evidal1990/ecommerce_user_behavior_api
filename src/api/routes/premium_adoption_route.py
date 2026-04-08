@@ -1,44 +1,25 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Query
+from src.api.route_helpers import execute_or_http_error
 from src.services.premium_adoption_service import (
-    list_by_country,
-    list_by_age_group,
-    list_by_annual_income_group,
-    list_by_education_level,
-    list_by_device_type,
+    get_premium_adoption_by_dimension,
 )
 
-router = APIRouter(prefix="/premium-adoption", tags=["Premium Adoption"])
+ALLOWED_DIMENSIONS = {
+    "country",
+    "age_group",
+    "device_type",
+    "annual_income_group",
+    "education_level",
+}
+
+router = APIRouter(
+    prefix="/premium-adoption",
+    tags=[
+        "Premium Adoption",
+    ],
+)
 
 
-def _execute_or_http_error(handler):
-    try:
-        return handler()
-    except ValueError as exc:
-        raise HTTPException(status_code=400, detail=str(exc),) from exc
-    except Exception as exc:
-        raise HTTPException(status_code=500, detail="Internal server error") from exc
-
-
-@router.get("/by-country")
-def premium_adoption_by_country():
-    return _execute_or_http_error(list_by_country)
-
-
-@router.get("/by-age-group")
-def premium_adoption_by_age_group():
-    return _execute_or_http_error(list_by_age_group)
-
-
-@router.get("/by-annual-income-group")
-def premium_adoption_by_annual_income():
-    return _execute_or_http_error(list_by_annual_income_group)
-
-
-@router.get("/by-education-level")
-def premium_adoption_by_education_level():
-    return _execute_or_http_error(list_by_education_level)
-
-
-@router.get("/by-device-type")
-def premium_adoption_by_device_type():
-    return _execute_or_http_error(list_by_device_type)
+@router.get("")
+def get_avg_daily_session_time_by_dimension(dimension: str = Query(...)):
+    return execute_or_http_error(lambda: get_premium_adoption_by_dimension(dimension))

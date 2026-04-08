@@ -18,8 +18,8 @@ def get_by_dimension(dimension: str):
             from
                 kpis
             where
-                dimension_name = %s
-                and kpi_name like '%%users_by%%'
+                kpi_name = 'avg_coupon_usage_frequency_per_week'
+                and dimension_name = %s  
             order by
                 dimension_value
             """
