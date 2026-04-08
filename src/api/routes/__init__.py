@@ -11,6 +11,7 @@ from .avg_purchase_conversion_rate_route import (
     router as avg_purchase_conversion_rate_route,
 )
 from .user_route import router as user_route
+from .avg_cart_abandonment_rate_route import router as avg_cart_abandonment_rate_route
 
 __all__ = [
     premium_adoption_router,
@@ -20,4 +21,5 @@ __all__ = [
     avg_coupon_usage_frequency_route,
     avg_purchase_conversion_rate_route,
     user_route,
+    avg_cart_abandonment_rate_route,
 ]
