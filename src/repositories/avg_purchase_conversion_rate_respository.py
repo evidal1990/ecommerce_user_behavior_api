@@ -18,7 +18,7 @@ def get_by_dimension(dimension: str):
             from
                 kpis
             where
-                kpi_name = 'avg_product_views_per_day'
+                kpi_name = 'avg_purchase_conversion_rate'
                 and dimension_name = %s  
             order by
                 dimension_name
