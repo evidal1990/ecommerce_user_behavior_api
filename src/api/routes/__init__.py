@@ -17,6 +17,7 @@ from .avg_referral_count_activity_route import router as avg_referral_count_acti
 from .churn_rate_route import router as churn_rate_route
 from .net_promoter_score_route import router as net_promoter_score_route
 from .daily_active_users_route import router as daily_active_users_route
+from .preferred_payment_method_route import router as preferred_payment_method_route
 
 __all__ = [
     premium_adoption_router,
@@ -32,4 +33,5 @@ __all__ = [
     churn_rate_route,
     net_promoter_score_route,
     daily_active_users_route,
+    preferred_payment_method_route,
 ]
