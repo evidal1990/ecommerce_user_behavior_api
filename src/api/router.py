@@ -14,6 +14,7 @@ from .routes import (
     net_promoter_score_route,
     daily_active_users_route,
     preferred_payment_method_route,
+    preferred_product_category_route,
 )
 
 api_router = APIRouter()
@@ -31,3 +32,4 @@ api_router.include_router(churn_rate_route)
 api_router.include_router(net_promoter_score_route)
 api_router.include_router(daily_active_users_route)
 api_router.include_router(preferred_payment_method_route)
+api_router.include_router(preferred_product_category_route)
