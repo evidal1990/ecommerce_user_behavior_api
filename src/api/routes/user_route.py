@@ -14,12 +14,10 @@ ALLOWED_DIMENSIONS = {
     "has_children",
     "employment_status",
     "urban_rural",
+    "premium_subscription_group",
 }
 
-router = APIRouter(
-    prefix="/users",
-    tags=["Users"],
-)
+router = APIRouter(prefix="/users", tags=["Users"])
 
 
 @router.get("")
