@@ -14,7 +14,6 @@ def get_by_dimension(dimension: str):
             select
                 dimensions ->> %s as dimension,
                 kpi_type,
-                dimension_name,
                 dimension_value,
                 SUM(kpi_value) as value
             from
@@ -28,7 +27,7 @@ def get_by_dimension(dimension: str):
                 dimension_name,
                 dimension_value
             order by
-                dimensions ->> %s,
+                dimension_name,
                 dimension_value
             """
         )
@@ -36,7 +35,6 @@ def get_by_dimension(dimension: str):
         cur.execute(
             query,
             (
-                dimension,
                 dimension,
                 dimension,
                 dimension,

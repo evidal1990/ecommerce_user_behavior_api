@@ -7,9 +7,8 @@ def get_preferred_payment_method_by_dimension(dimension: str):
         {
             dimension: col[0],
             "type": col[1],
-            "subtype": col[2],
-            "date": col[3],
-            "value": col[4],
+            "payment_method": col[2],
+            "dimension_value": col[3],
         }
         for col in columns
     ]
