@@ -22,19 +22,19 @@ def get_by_dimension(dimension: str):
                 kpi_name = 'preferred_product_category'
                 and dimensions ->> %s <> ''
             group by
+                dimension_value,
                 dimensions ->> %s,
                 kpi_type,
-                dimension_name,
-                dimension_value
+                dimension_name
             order by
-                dimensions ->> %s,
-                dimension_value
+                dimension_value,
+                dimension
             """
         )
 
         cur.execute(
             query,
-            (dimension, dimension, dimension, dimension),
+            (dimension, dimension, dimension),
         )
         rows = cur.fetchall()
         return rows

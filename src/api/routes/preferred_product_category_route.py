@@ -7,7 +7,7 @@ from src.services.preferred_product_category_service import (
 ALLOWED_DIMENSIONS = {
     "country",
     "age_group",
-    "cart_abandonment_rate_group",
+    "device_type",
 }
 
 router = APIRouter(
