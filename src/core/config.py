@@ -26,6 +26,26 @@ def _strip_env(key: str) -> str | None:
     return stripped or None
 
 
+def db_prefer_ipv4(host: str | None) -> bool:
+    """
+    Render often egresses over IPv6; the path to Supabase can hang or drop during SSL,
+    leaving Postgres logs as 'connection received' with user/database still null.
+
+    Default (env unset): enable for *.supabase.co hostnames.
+    DB_PREFER_IPV4=false: disable. DB_PREFER_IPV4=true: force try for any host.
+    """
+    if not host:
+        return False
+    raw = os.getenv("DB_PREFER_IPV4")
+    if raw is None or raw.strip() == "":
+        return "supabase.co" in host.lower()
+    if raw.strip().lower() in ("0", "false", "no", "off"):
+        return False
+    if raw.strip().lower() in ("1", "true", "yes", "on"):
+        return True
+    return False
+
+
 class Settings:
     # Set to "1" on Render only while debugging; shows Postgres message in API responses.
     DATABASE_EXPOSE_ERRORS = os.getenv("DATABASE_EXPOSE_ERRORS", "").lower() in (
