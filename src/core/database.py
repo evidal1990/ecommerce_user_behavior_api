@@ -1,5 +1,4 @@
 import logging
-from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
 
 import psycopg2
 from src.core.config import settings
@@ -7,34 +6,20 @@ from src.core.config import settings
 logger = logging.getLogger(__name__)
 
 
-def _database_url_with_defaults(url: str) -> str:
+def _database_url_with_sslmode(url: str) -> str:
+    """Append sslmode only if missing; avoid re-parsing query (breaks Supabase options=...)."""
     if url.startswith("postgres://"):
         url = url.replace("postgres://", "postgresql://", 1)
-    parts = urlparse(url)
-    qsl = parse_qsl(parts.query, keep_blank_values=True)
-    keys_lower = {k.lower() for k, _ in qsl}
-    extra = []
-    if "sslmode" not in keys_lower:
-        extra.append(("sslmode", "require"))
-    if "gssencmode" not in keys_lower:
-        extra.append(("gssencmode", "disable"))
-    new_query = urlencode(list(qsl) + extra)
-    return urlunparse(
-        (
-            parts.scheme,
-            parts.netloc,
-            parts.path,
-            parts.params,
-            new_query,
-            parts.fragment,
-        )
-    )
+    if "sslmode=" not in url.lower():
+        sep = "&" if "?" in url else "?"
+        url = f"{url}{sep}sslmode=require"
+    return url
 
 
 def get_connection():
     url = settings.DATABASE_URL
     if url:
-        return psycopg2.connect(_database_url_with_defaults(url))
+        return psycopg2.connect(_database_url_with_sslmode(url), connect_timeout=15)
 
     if not all(
         (
@@ -55,8 +40,10 @@ def get_connection():
         "user": settings.DB_USER,
         "password": settings.DB_PASSWORD,
         "sslmode": settings.DB_SSLMODE,
+        "connect_timeout": 15,
     }
     if settings.DB_PORT:
         kwargs["port"] = settings.DB_PORT
-    kwargs["gssencmode"] = "disable"
+    if settings.DB_GSSENCMODE:
+        kwargs["gssencmode"] = settings.DB_GSSENCMODE
     return psycopg2.connect(**kwargs)

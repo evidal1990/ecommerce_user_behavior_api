@@ -18,15 +18,33 @@ def _load_local_env_file() -> None:
 _load_local_env_file()
 
 
-class Settings:
-    DATABASE_URL = os.getenv("DATABASE_URL")
+def _strip_env(key: str) -> str | None:
+    value = os.getenv(key)
+    if value is None:
+        return None
+    stripped = value.strip()
+    return stripped or None
 
-    DB_HOST = os.getenv("SUPABASE_DB_HOST")
-    DB_NAME = os.getenv("SUPABASE_DB_NAME")
-    DB_USER = os.getenv("SUPABASE_DB_USER")
-    DB_PASSWORD = os.getenv("SUPABASE_DB_PASSWORD")
-    DB_PORT = os.getenv("SUPABASE_DB_PORT")
-    DB_SSLMODE = os.getenv("DB_SSLMODE") or "require"
+
+class Settings:
+    # Set to "1" on Render only while debugging; shows Postgres message in API responses.
+    DATABASE_EXPOSE_ERRORS = os.getenv("DATABASE_EXPOSE_ERRORS", "").lower() in (
+        "1",
+        "true",
+        "yes",
+    )
+
+    DATABASE_URL = _strip_env("DATABASE_URL")
+
+    DB_HOST = _strip_env("SUPABASE_DB_HOST")
+    DB_NAME = _strip_env("SUPABASE_DB_NAME")
+    DB_USER = _strip_env("SUPABASE_DB_USER")
+    _raw_password = os.getenv("SUPABASE_DB_PASSWORD")
+    DB_PASSWORD = _raw_password.strip() if _raw_password is not None else None
+    DB_PORT = _strip_env("SUPABASE_DB_PORT")
+    DB_SSLMODE = (os.getenv("DB_SSLMODE") or "require").strip() or "require"
+    # Only passed to libpq if set (e.g. "disable"); avoids invalid-option errors on older clients.
+    DB_GSSENCMODE = _strip_env("DB_GSSENCMODE")
 
 
 settings = Settings()
