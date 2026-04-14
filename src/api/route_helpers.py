@@ -1,8 +1,11 @@
+import logging
 from collections.abc import Callable
 from typing import TypeVar
 
 from fastapi import HTTPException
 from psycopg2 import Error as Psycopg2Error
+
+logger = logging.getLogger(__name__)
 
 T = TypeVar("T")
 
@@ -20,6 +23,7 @@ def execute_or_http_error(handler: Callable[[], T]) -> T:
             raise HTTPException(status_code=503, detail=msg) from exc
         raise HTTPException(status_code=500, detail="Internal server error") from exc
     except Psycopg2Error as exc:
+        logger.warning("PostgreSQL error: %s: %s", type(exc).__name__, exc)
         raise HTTPException(
             status_code=503,
             detail="Database temporarily unavailable",

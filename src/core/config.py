@@ -26,7 +26,7 @@ class Settings:
     DB_USER = os.getenv("SUPABASE_DB_USER")
     DB_PASSWORD = os.getenv("SUPABASE_DB_PASSWORD")
     DB_PORT = os.getenv("SUPABASE_DB_PORT")
-    DB_SSLMODE = os.getenv("DB_SSLMODE", "require")
+    DB_SSLMODE = os.getenv("DB_SSLMODE") or "require"
 
 
 settings = Settings()
