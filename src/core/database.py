@@ -8,6 +8,7 @@ from src.core.config import db_prefer_ipv4, settings
 
 logger = logging.getLogger(__name__)
 _logged_supabase_ipv6_only = False
+_logged_database_url_direct = False
 
 
 def _database_url_with_sslmode(url: str) -> str:
@@ -72,27 +73,24 @@ def _database_url_ready(url: str) -> str:
     return f"{url}{sep}hostaddr={ipv4}"
 
 
-def get_connection():
-    url = settings.DATABASE_URL
-    if url:
-        return psycopg2.connect(_database_url_ready(url), connect_timeout=15)
+def _warn_if_database_url_uses_direct_supabase(url: str) -> None:
+    global _logged_database_url_direct
+    if _logged_database_url_direct:
+        return
+    hostname = urlparse(url).hostname or ""
+    if not _is_supabase_direct_db_host(hostname):
+        return
+    _logged_database_url_direct = True
+    logger.error(
+        "DATABASE_URL points to direct host %s (often IPv6-only; Render may get intermittent 503). "
+        "Prefer Session pooler: set SUPABASE_POOLER_HOST + SUPABASE_DB_* and remove DATABASE_URL on Render, "
+        "or replace DATABASE_URL with the pooler URI from Supabase (port 5432, user postgres.<ref>).",
+        hostname,
+    )
 
-    if not all(
-        (
-            settings.DB_HOST,
-            settings.DB_NAME,
-            settings.DB_USER,
-            settings.DB_PASSWORD,
-        )
-    ):
-        raise RuntimeError(
-            "Database not configured: set DATABASE_URL or "
-            "SUPABASE_DB_HOST, SUPABASE_DB_NAME, SUPABASE_DB_USER, and SUPABASE_DB_PASSWORD"
-        )
 
-    connect_host = settings.DB_POOLER_HOST or settings.DB_HOST
+def _connect_discrete(connect_host: str) -> psycopg2.extensions.connection:
     _log_ipv6_only_supabase(connect_host)
-
     kwargs = {
         "host": connect_host,
         "database": settings.DB_NAME,
@@ -110,3 +108,48 @@ def get_connection():
         if ipv4:
             kwargs["hostaddr"] = ipv4
     return psycopg2.connect(**kwargs)
+
+
+def get_connection():
+    discrete_creds = all(
+        (
+            settings.DB_NAME,
+            settings.DB_USER,
+            settings.DB_PASSWORD,
+        )
+    )
+
+    # Pooler + discrete creds must win over DATABASE_URL (Render often sets a stale direct Supabase URL).
+    if settings.DB_POOLER_HOST:
+        if not discrete_creds:
+            raise RuntimeError(
+                "SUPABASE_POOLER_HOST is set but SUPABASE_DB_NAME, SUPABASE_DB_USER, and/or "
+                "SUPABASE_DB_PASSWORD are missing. Fill those from the Session pooler connection string, "
+                "or remove SUPABASE_POOLER_HOST."
+            )
+        if settings.DATABASE_URL:
+            logger.warning(
+                "SUPABASE_POOLER_HOST is set: connecting via pooler and ignoring DATABASE_URL."
+            )
+        return _connect_discrete(settings.DB_POOLER_HOST)
+
+    url = settings.DATABASE_URL
+    if url:
+        _warn_if_database_url_uses_direct_supabase(url)
+        return psycopg2.connect(_database_url_ready(url), connect_timeout=15)
+
+    if not all(
+        (
+            settings.DB_HOST,
+            settings.DB_NAME,
+            settings.DB_USER,
+            settings.DB_PASSWORD,
+        )
+    ):
+        raise RuntimeError(
+            "Database not configured: set DATABASE_URL or "
+            "SUPABASE_DB_HOST, SUPABASE_DB_NAME, SUPABASE_DB_USER, and SUPABASE_DB_PASSWORD "
+            "(for Render + Supabase, prefer SUPABASE_POOLER_HOST + those vars and omit DATABASE_URL)."
+        )
+
+    return _connect_discrete(settings.DB_HOST)
