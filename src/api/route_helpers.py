@@ -12,6 +12,21 @@ logger = logging.getLogger(__name__)
 
 T = TypeVar("T")
 
+_SUPABASE_POOLER_TENANT_HINT = (
+    " Supabase Session pooler: use host from Dashboard → Connect → Session pooler, "
+    "port 5432, user postgres.<project_ref> (not only 'postgres')."
+)
+
+
+def _supabase_pooler_hint(exc: OperationalError) -> str:
+    if "tenant or user not found" not in str(exc).lower():
+        return ""
+    logger.error(
+        "Supabase pooler rejected tenant/user.%s",
+        _SUPABASE_POOLER_TENANT_HINT,
+    )
+    return _SUPABASE_POOLER_TENANT_HINT
+
 
 def execute_or_http_error(handler: Callable[[], T]) -> T:
     try:
@@ -33,11 +48,11 @@ def execute_or_http_error(handler: Callable[[], T]) -> T:
         raise HTTPException(status_code=500, detail=detail) from exc
     except (OperationalError, InterfaceError) as exc:
         logger.error("PostgreSQL connection error: %s", exc, exc_info=True)
-        detail = (
-            str(exc)
-            if settings.DATABASE_EXPOSE_ERRORS
-            else "Database temporarily unavailable"
-        )
+        pooler_hint = _supabase_pooler_hint(exc) if isinstance(exc, OperationalError) else ""
+        if settings.DATABASE_EXPOSE_ERRORS:
+            detail = str(exc) + (pooler_hint if pooler_hint else "")
+        else:
+            detail = "Database temporarily unavailable"
         raise HTTPException(status_code=503, detail=detail) from exc
     except DatabaseError as exc:
         # e.g. InternalError (pooler), NotSupportedError — connection exists; not a "service down" case
