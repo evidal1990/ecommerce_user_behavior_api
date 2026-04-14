@@ -56,6 +56,11 @@ class Settings:
 
     DATABASE_URL = _strip_env("DATABASE_URL")
 
+    # Optional: Session pooler hostname from Supabase (Database → Connection pooling).
+    # Direct db.<ref>.supabase.co is often IPv6-only; Render→IPv6 can fail before auth (503).
+    # Example: aws-0-sa-east-1.pooler.supabase.com with SUPABASE_DB_PORT=5432 and user postgres.<ref>
+    DB_POOLER_HOST = _strip_env("SUPABASE_POOLER_HOST")
+
     DB_HOST = _strip_env("SUPABASE_DB_HOST")
     DB_NAME = _strip_env("SUPABASE_DB_NAME")
     DB_USER = _strip_env("SUPABASE_DB_USER")

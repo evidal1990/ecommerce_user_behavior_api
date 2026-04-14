@@ -1,4 +1,5 @@
 import logging
+import re
 import socket
 from urllib.parse import urlparse
 
@@ -6,6 +7,7 @@ import psycopg2
 from src.core.config import db_prefer_ipv4, settings
 
 logger = logging.getLogger(__name__)
+_logged_supabase_ipv6_only = False
 
 
 def _database_url_with_sslmode(url: str) -> str:
@@ -27,6 +29,33 @@ def _first_ipv4(host: str) -> str | None:
     if not infos:
         return None
     return infos[0][4][0]
+
+
+def _is_supabase_direct_db_host(host: str) -> bool:
+    h = host.lower().rstrip(".")
+    return h.startswith("db.") and h.endswith(".supabase.co")
+
+
+def _log_ipv6_only_supabase(host: str) -> None:
+    global _logged_supabase_ipv6_only
+    if not _is_supabase_direct_db_host(host):
+        return
+    if _first_ipv4(host) is not None:
+        return
+    if _logged_supabase_ipv6_only:
+        return
+    _logged_supabase_ipv6_only = True
+    m = re.match(r"^db\.([^.]+)\.supabase\.co\.?$", host, re.IGNORECASE)
+    pooler_user = f"postgres.{m.group(1)}" if m else "postgres.<project_ref>"
+    logger.error(
+        "Host %s has no IPv4 (A record); only IPv6. Traffic from many hosts (e.g. Render) "
+        "often fails before PostgreSQL authentication. Set env SUPABASE_POOLER_HOST to the "
+        "Session pooler hostname from Supabase → Database → Connection pooling "
+        "(e.g. aws-0-sa-east-1.pooler.supabase.com), SUPABASE_DB_PORT=5432, and "
+        "SUPABASE_DB_USER=%s (keep password and database name as in the pooler URI).",
+        host,
+        pooler_user,
+    )
 
 
 def _database_url_ready(url: str) -> str:
@@ -61,8 +90,11 @@ def get_connection():
             "SUPABASE_DB_HOST, SUPABASE_DB_NAME, SUPABASE_DB_USER, and SUPABASE_DB_PASSWORD"
         )
 
+    connect_host = settings.DB_POOLER_HOST or settings.DB_HOST
+    _log_ipv6_only_supabase(connect_host)
+
     kwargs = {
-        "host": settings.DB_HOST,
+        "host": connect_host,
         "database": settings.DB_NAME,
         "user": settings.DB_USER,
         "password": settings.DB_PASSWORD,
@@ -73,8 +105,8 @@ def get_connection():
         kwargs["port"] = settings.DB_PORT
     if settings.DB_GSSENCMODE:
         kwargs["gssencmode"] = settings.DB_GSSENCMODE
-    if db_prefer_ipv4(settings.DB_HOST):
-        ipv4 = _first_ipv4(settings.DB_HOST)
+    if db_prefer_ipv4(connect_host):
+        ipv4 = _first_ipv4(connect_host)
         if ipv4:
             kwargs["hostaddr"] = ipv4
     return psycopg2.connect(**kwargs)
