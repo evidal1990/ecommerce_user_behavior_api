@@ -1,8 +1,6 @@
-from fastapi import APIRouter, Query
+from fastapi import APIRouter
 from src.api.route_helpers import execute_or_http_error
-from src.services.user_service import (
-    get_users_by_dimension,
-)
+from src.services import user_service
 
 ALLOWED_DIMENSIONS = {
     "country",
@@ -20,6 +18,13 @@ ALLOWED_DIMENSIONS = {
 router = APIRouter(prefix="/users", tags=["Users"])
 
 
-@router.get("")
-def users_by_dimension(dimension: str = Query(...)):
-    return execute_or_http_error(lambda: get_users_by_dimension(dimension))
+@router.get("/annual-income-group")
+def users_by_dimension():
+    return execute_or_http_error(
+        lambda: user_service.users_by_annual_income_group(),
+    )
+
+
+@router.get("/")
+def total_users():
+    return execute_or_http_error(lambda: user_service.total_users())

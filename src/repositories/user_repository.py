@@ -1,35 +1,41 @@
-from src.core.database import get_connection
 from textwrap import dedent
 
+from src.core.database import get_connection
 
-def get_by_dimension(dimension: str):
-    conn = None
-    cur = None
+
+def _fetch_all(query: str):
+    conn = get_connection()
+    cur = conn.cursor()
     try:
-        conn = get_connection()
-        cur = conn.cursor()
-
-        query = dedent(
-            """
-            select
-                dimension_value,
-                kpi_type,
-                kpi_value
-            from
-                kpis
-            where
-                dimension_name = %s
-                and kpi_name like '%%users_by%%'
-            order by
-                dimension_value
-            """
-        )
-
-        cur.execute(query, (dimension,))
-        rows = cur.fetchall()
-        return rows
+        cur.execute(query)
+        return cur.fetchall()
     finally:
-        if cur is not None:
-            cur.close()
-        if conn is not None:
-            conn.close()
+        cur.close()
+        conn.close()
+
+
+def get_users_by_annual_income_group():
+    query = dedent(
+        """
+        select
+            annual_income_group,
+            COUNT(id) as total_users
+        from
+            aggregations
+        group by
+            annual_income_group
+        """
+    )
+    return _fetch_all(query)
+
+
+def get_total_users():
+    query = dedent(
+        """
+        select
+            COUNT(id) as total_users
+        from
+            aggregations
+        """
+    )
+    return _fetch_all(query)

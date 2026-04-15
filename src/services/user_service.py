@@ -1,9 +1,14 @@
-from src.repositories.user_repository import get_by_dimension
+from src.repositories.user_repository import (
+    get_total_users as repo_get_total_users,
+    get_users_by_annual_income_group as repo_get_users_by_annual_income_group,
+)
 
 
-def get_users_by_dimension(dimension: str):
-    columns = get_by_dimension(dimension)
-    return [
-        {dimension: col[0], "type": col[1], "subtype": "users", "value": col[2]}
-        for col in columns
-    ]
+def users_by_annual_income_group():
+    columns = repo_get_users_by_annual_income_group()
+    return [{"annual_income_group": col[0], "total_users": col[1]} for col in columns]
+
+
+def total_users():
+    rows = repo_get_total_users()
+    return {"total_users": rows[0][0]}
