@@ -1,5 +1,4 @@
 from src.repositories.user_repository import (
-    get_total_users as repo_get_total_users,
     get_users_grouped_by_annual_income_group as repo_get_users_grouped_by_annual_income_group,
     get_users_grouped_by_age_group as repo_get_users_grouped_by_age_group,
     get_users_grouped_by_device_type as repo_get_users_grouped_by_device_type,
@@ -36,7 +35,7 @@ from src.repositories.user_repository import (
 )
 
 from src.repositories.metrics_repository import (
-    get_users_churn_rate as repo_get_users_churn_rate,
+    get_total_users as repo_get_total_users,
     get_users_avg_coupon_usage_frequency as repo_get_users_avg_coupon_usage_frequency,
     get_users_avg_purchase_conversion_rate as repo_get_users_avg_purchase_conversion_rate,
     get_users_avg_daily_session_time as repo_get_users_avg_daily_session_time,
@@ -48,6 +47,7 @@ from src.repositories.metrics_repository import (
     get_users_avg_app_usage_frequency as repo_get_users_avg_app_usage_frequency,
     get_users_avg_referral_count as repo_get_users_avg_referral_count,
     get_users_avg_app_usage_frequency as repo_get_users_avg_app_usage_frequency,
+    get_users_churn_rate as repo_get_users_churn_rate,
 )
 
 __all__ = [

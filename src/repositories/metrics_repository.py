@@ -134,14 +134,14 @@ def get_users_avg_coupon_usage_frequency():
     return _fetch_all(query)
 
 
-def get_users_churn_rate(days: int = 90):
+def get_users_churn_rate():
     query = dedent(
         """
         select
             ROUND(
                 COUNT(*) filter (
                 where
-                    last_purchase_date < (now() - interval '%s days')
+                    last_purchase_date < (now() - interval '90 days')
                 ) * 1.0 / COUNT(id) * 100,
                 0
             ) as churn_rate
@@ -149,4 +149,17 @@ def get_users_churn_rate(days: int = 90):
             aggregations
         """
     )
-    return _fetch_all(query, (days,))
+    return _fetch_all(query)
+
+
+
+def get_total_users():
+    query = dedent(
+        """
+        select
+            COUNT(id) as total_users
+        from
+            aggregations
+        """
+    )
+    return _fetch_all(query)

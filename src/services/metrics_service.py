@@ -8,10 +8,10 @@ from src.repositories import (
     repo_get_users_avg_product_views_per_day,
     repo_get_users_avg_app_usage_frequency,
     repo_get_users_avg_referral_count,
+    repo_get_users_churn_rate,
 )
 
 _REPO_BY_METRIC = {
-    "total_users": repo_get_total_users,
     "avg_coupon_usage_per_user": repo_get_users_avg_coupon_usage_frequency,
     "avg_purchase_conversion_rate": repo_get_users_avg_purchase_conversion_rate,
     "avg_daily_session_time": repo_get_users_avg_daily_session_time,
@@ -20,6 +20,8 @@ _REPO_BY_METRIC = {
     "avg_product_views_per_day": repo_get_users_avg_product_views_per_day,
     "avg_app_usage_frequency": repo_get_users_avg_app_usage_frequency,
     "avg_referral_count": repo_get_users_avg_referral_count,
+    "churn_rate": repo_get_users_churn_rate,
+    "total_users": repo_get_total_users,
 }
 
 

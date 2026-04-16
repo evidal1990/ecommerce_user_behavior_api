@@ -525,15 +525,3 @@ def get_users_grouped_by_product_category_preference_and_annual_income_group():
         """
     )
     return _fetch_all(query)
-
-
-def get_total_users():
-    query = dedent(
-        """
-        select
-            COUNT(id) as total_users
-        from
-            aggregations
-        """
-    )
-    return _fetch_all(query)
