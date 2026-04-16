@@ -581,6 +581,72 @@ def get_users_grouped_by_preferred_payment_method_and_annual_income_group():
     return _fetch_all(query)
 
 
+def get_users_grouped_by_product_category_preference():
+    query = dedent(
+        """
+        select
+            product_category_preference,
+            COUNT(id) as total_users
+        from
+            aggregations
+        group by
+            product_category_preference
+        """
+    )
+    return _fetch_all(query)
+
+
+def get_users_grouped_by_product_category_preference_and_country():
+    query = dedent(
+        """
+        select
+            country,
+            product_category_preference,
+            COUNT(id) as total_users
+        from
+            aggregations
+        group by
+            country,
+            product_category_preference
+        """
+    )
+    return _fetch_all(query)
+
+
+def get_users_grouped_by_product_category_preference_and_age_group():
+    query = dedent(
+        """
+        select
+            age_group,
+            product_category_preference,
+            COUNT(id) as total_users
+        from
+            aggregations
+        group by
+            age_group,
+            product_category_preference
+        """
+    )
+    return _fetch_all(query)
+
+
+def get_users_grouped_by_product_category_preference_and_annual_income_group():
+    query = dedent(
+        """
+        select
+            annual_income_group,
+            product_category_preference,
+            COUNT(id) as total_users
+        from
+            aggregations
+        group by
+            annual_income_group,
+            product_category_preference
+        """
+    )
+    return _fetch_all(query)
+
+
 def get_total_users():
     query = dedent(
         """

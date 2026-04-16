@@ -37,6 +37,10 @@ from src.repositories import (
     repo_get_users_grouped_by_preferred_payment_method_and_country,
     repo_get_users_grouped_by_preferred_payment_method_and_age_group,
     repo_get_users_grouped_by_preferred_payment_method_and_annual_income_group,
+    repo_get_users_grouped_by_product_category_preference,
+    repo_get_users_grouped_by_product_category_preference_and_country,
+    repo_get_users_grouped_by_product_category_preference_and_age_group,
+    repo_get_users_grouped_by_product_category_preference_and_annual_income_group,
 )
 
 _REPO_BY_DIMENSION = {
@@ -69,6 +73,10 @@ _REPO_BY_DIMENSION = {
     "preferred_payment_method_by_country": repo_get_users_grouped_by_preferred_payment_method_and_country,
     "preferred_payment_method_by_age_group": repo_get_users_grouped_by_preferred_payment_method_and_age_group,
     "preferred_payment_method_by_annual_income": repo_get_users_grouped_by_preferred_payment_method_and_annual_income_group,
+    "product_category_preference": repo_get_users_grouped_by_product_category_preference,
+    "product_category_preference_by_country": repo_get_users_grouped_by_product_category_preference_and_country,
+    "product_category_preference_by_age_group": repo_get_users_grouped_by_product_category_preference_and_age_group,
+    "product_category_preference_by_annual_income": repo_get_users_grouped_by_product_category_preference_and_annual_income_group,
 }
 
 _REPO_BY_METRIC = {
@@ -107,6 +115,18 @@ _MULTI_DIMENSION_FIELD_NAMES: dict[str, list[str]] = {
     "preferred_payment_method_by_annual_income": [
         "annual_income_group",
         "preferred_payment_method",
+    ],
+    "product_category_preference_by_country": [
+        "country",
+        "product_category_preference",
+    ],
+    "product_category_preference_by_age_group": [
+        "age_group",
+        "product_category_preference",
+    ],
+    "product_category_preference_by_annual_income": [
+        "annual_income_group",
+        "product_category_preference",
     ],
 }
 

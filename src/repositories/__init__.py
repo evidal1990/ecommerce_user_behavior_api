@@ -37,6 +37,10 @@ from src.repositories.user_repository import (
     get_users_grouped_by_preferred_payment_method_and_country as repo_get_users_grouped_by_preferred_payment_method_and_country,
     get_users_grouped_by_preferred_payment_method_and_age_group as repo_get_users_grouped_by_preferred_payment_method_and_age_group,
     get_users_grouped_by_preferred_payment_method_and_annual_income_group as repo_get_users_grouped_by_preferred_payment_method_and_annual_income_group,
+    get_users_grouped_by_product_category_preference as repo_get_users_grouped_by_product_category_preference,
+    get_users_grouped_by_product_category_preference_and_country as repo_get_users_grouped_by_product_category_preference_and_country,
+    get_users_grouped_by_product_category_preference_and_age_group as repo_get_users_grouped_by_product_category_preference_and_age_group,
+    get_users_grouped_by_product_category_preference_and_annual_income_group as repo_get_users_grouped_by_product_category_preference_and_annual_income_group,
 )
 
 __all__ = [
@@ -78,4 +82,8 @@ __all__ = [
     repo_get_users_grouped_by_preferred_payment_method_and_country,
     repo_get_users_grouped_by_preferred_payment_method_and_age_group,
     repo_get_users_grouped_by_preferred_payment_method_and_annual_income_group,
+    repo_get_users_grouped_by_product_category_preference,
+    repo_get_users_grouped_by_product_category_preference_and_country,
+    repo_get_users_grouped_by_product_category_preference_and_age_group,
+    repo_get_users_grouped_by_product_category_preference_and_annual_income_group,
 ]
