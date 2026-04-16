@@ -28,6 +28,7 @@ from src.repositories import (
     repo_get_users_grouped_by_return_rate_group,
     repo_get_users_grouped_by_purchase_conversion_rate_group,
     repo_get_users_grouped_by_social_sharing_frequency_group,
+    repo_get_users_grouped_by_cart_abandonment_rate_group,
 )
 
 _REPO_BY_DIMENSION = {
@@ -51,6 +52,7 @@ _REPO_BY_DIMENSION = {
     "return_rate": repo_get_users_grouped_by_return_rate_group,
     "purchase_conversion_rate": repo_get_users_grouped_by_purchase_conversion_rate_group,
     "social_sharing_frequency": repo_get_users_grouped_by_social_sharing_frequency_group,
+    "cart_abandonment_rate": repo_get_users_grouped_by_cart_abandonment_rate_group,
 }
 
 _REPO_BY_METRIC = {
