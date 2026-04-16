@@ -27,6 +27,7 @@ from src.repositories.user_repository import (
     get_users_grouped_by_browse_to_buy_ratio_group as repo_get_users_grouped_by_browse_to_buy_ratio_group,
     get_users_grouped_by_return_rate_group as repo_get_users_grouped_by_return_rate_group,
     get_users_grouped_by_purchase_conversion_rate_group as repo_get_users_grouped_by_purchase_conversion_rate_group,
+    get_users_grouped_by_social_sharing_frequency_group as repo_get_users_grouped_by_social_sharing_frequency_group,
 )
 
 __all__ = [
@@ -58,4 +59,5 @@ __all__ = [
     repo_get_users_grouped_by_browse_to_buy_ratio_group,
     repo_get_users_grouped_by_return_rate_group,
     repo_get_users_grouped_by_purchase_conversion_rate_group,
+    repo_get_users_grouped_by_social_sharing_frequency_group,
 ]
