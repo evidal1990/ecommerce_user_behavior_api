@@ -5,6 +5,13 @@ from src.services import user_service
 router = APIRouter(prefix="/users", tags=["Users"])
 
 
+@router.get("/education-level")
+def users_by_education_level():
+    return execute_or_http_error(
+        lambda: user_service.users_by_education_level(),
+    )
+
+
 @router.get("/gender")
 def users_by_gender():
     return execute_or_http_error(

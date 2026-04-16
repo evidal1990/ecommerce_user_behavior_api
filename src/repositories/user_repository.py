@@ -14,6 +14,21 @@ def _fetch_all(query: str):
         conn.close()
 
 
+def get_users_by_education_level():
+    query = dedent(
+        """
+        select
+            education_level,
+            COUNT(id) as total_users
+        from
+            aggregations
+        group by
+            education_level
+        """
+    )
+    return _fetch_all(query)
+
+
 def get_users_by_gender():
     query = dedent(
         """
