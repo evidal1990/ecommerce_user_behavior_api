@@ -14,6 +14,21 @@ def _fetch_all(query: str):
         conn.close()
 
 
+def get_users_by_gender():
+    query = dedent(
+        """
+        select
+            gender,
+            COUNT(id) as total_users
+        from
+            aggregations
+        group by
+            gender
+        """
+    )
+    return _fetch_all(query)
+
+
 def get_users_by_neighborhood():
     query = dedent(
         """
@@ -27,6 +42,7 @@ def get_users_by_neighborhood():
         """
     )
     return _fetch_all(query)
+
 
 def get_users_by_device_type():
     query = dedent(
@@ -42,6 +58,7 @@ def get_users_by_device_type():
     )
     return _fetch_all(query)
 
+
 def get_users_by_age_group():
     query = dedent(
         """
@@ -55,6 +72,7 @@ def get_users_by_age_group():
         """
     )
     return _fetch_all(query)
+
 
 def get_users_by_annual_income_group():
     query = dedent(
