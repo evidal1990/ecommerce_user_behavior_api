@@ -14,6 +14,20 @@ def _fetch_all(query: str):
         conn.close()
 
 
+def get_users_by_age_group():
+    query = dedent(
+        """
+        select
+            age_group,
+            COUNT(id) as total_users
+        from
+            aggregations
+        group by
+            age_group
+        """
+    )
+    return _fetch_all(query)
+
 def get_users_by_annual_income_group():
     query = dedent(
         """
