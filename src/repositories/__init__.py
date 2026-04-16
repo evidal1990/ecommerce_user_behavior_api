@@ -23,12 +23,16 @@ from src.repositories.user_repository import (
     get_users_grouped_by_social_media_influence_score_group as repo_get_users_grouped_by_social_media_influence_score_group,
     get_users_grouped_by_stress_from_financial_decisions_level_group as repo_get_users_grouped_by_stress_from_financial_decisions_level_group,
     get_users_grouped_by_referral_count_group as repo_get_users_grouped_by_referral_count_group,
-    get_users_grouped_by_impulse_buying_score_group as repo_get_users_grouped_by_impulse_buying_score_group,    
+    get_users_grouped_by_impulse_buying_score_group as repo_get_users_grouped_by_impulse_buying_score_group,
     get_users_grouped_by_browse_to_buy_ratio_group as repo_get_users_grouped_by_browse_to_buy_ratio_group,
     get_users_grouped_by_return_rate_group as repo_get_users_grouped_by_return_rate_group,
     get_users_grouped_by_purchase_conversion_rate_group as repo_get_users_grouped_by_purchase_conversion_rate_group,
     get_users_grouped_by_social_sharing_frequency_group as repo_get_users_grouped_by_social_sharing_frequency_group,
     get_users_grouped_by_cart_abandonment_rate_group as repo_get_users_grouped_by_cart_abandonment_rate_group,
+    get_users_grouped_by_premium_subscription_group as repo_get_users_grouped_by_premium_subscription_group,
+    get_users_grouped_by_premium_subscription_group_and_country as repo_get_users_grouped_by_premium_subscription_group_and_country,
+    get_users_grouped_by_premium_subscription_group_and_age_group as repo_get_users_grouped_by_premium_subscription_group_and_age_group,
+    get_users_grouped_by_premium_subscription_group_and_annual_income_group as repo_get_users_grouped_by_premium_subscription_group_and_annual_income_group,
 )
 
 __all__ = [
@@ -62,4 +66,8 @@ __all__ = [
     repo_get_users_grouped_by_purchase_conversion_rate_group,
     repo_get_users_grouped_by_social_sharing_frequency_group,
     repo_get_users_grouped_by_cart_abandonment_rate_group,
+    repo_get_users_grouped_by_premium_subscription_group,
+    repo_get_users_grouped_by_premium_subscription_group_and_country,
+    repo_get_users_grouped_by_premium_subscription_group_and_age_group,
+    repo_get_users_grouped_by_premium_subscription_group_and_annual_income_group,
 ]

@@ -449,6 +449,72 @@ def get_users_grouped_by_cart_abandonment_rate_group():
     return _fetch_all(query)
 
 
+def get_users_grouped_by_premium_subscription_group():
+    query = dedent(
+        """
+        select
+            premium_subscription_group,
+            COUNT(id) as total_users
+        from
+            aggregations
+        group by
+            premium_subscription_group
+        """
+    )
+    return _fetch_all(query)
+
+
+def get_users_grouped_by_premium_subscription_group_and_country():
+    query = dedent(
+        """
+        select
+            country,
+            premium_subscription_group,
+            COUNT(id) as total_users
+        from
+            aggregations
+        group by
+            country,
+            premium_subscription_group
+        """
+    )
+    return _fetch_all(query)
+
+
+def get_users_grouped_by_premium_subscription_group_and_age_group():
+    query = dedent(
+        """
+        select
+            age_group,
+            premium_subscription_group,
+            COUNT(id) as total_users
+        from
+            aggregations
+        group by
+            age_group,
+            premium_subscription_group
+        """
+    )
+    return _fetch_all(query)
+
+
+def get_users_grouped_by_premium_subscription_group_and_annual_income_group():
+    query = dedent(
+        """
+        select
+            annual_income_group,
+            premium_subscription_group,
+            COUNT(id) as total_users
+        from
+            aggregations
+        group by
+            annual_income_group,
+            premium_subscription_group
+        """
+    )
+    return _fetch_all(query)
+
+
 def get_total_users():
     query = dedent(
         """
