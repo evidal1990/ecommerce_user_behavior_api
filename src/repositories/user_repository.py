@@ -14,6 +14,21 @@ def _fetch_all(query: str):
         conn.close()
 
 
+def get_users_avg_purchase_conversion_rate():
+    query = dedent(
+        """
+        select
+            ROUND(
+                SUM(avg_purchase_conversion_rate * count_users) / SUM(count_users), 
+                1
+            ) as avg_purchase_conversion_rate
+        from
+            aggregations
+        """
+    )
+    return _fetch_all(query)
+
+
 def get_users_avg_coupon_usage_frequency():
     query = dedent(
         """

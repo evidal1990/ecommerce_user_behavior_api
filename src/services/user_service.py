@@ -9,7 +9,8 @@ from src.repositories import (
     repo_get_users_grouped_by_age_group,
     repo_get_users_grouped_by_annual_income_group,
     repo_get_users_grouped_by_has_children_group,
-    repo_get_users_avg_coupon_usage_frequency,
+    repo_get_users_avg_coupon_usage_frequency,  
+    repo_get_users_avg_purchase_conversion_rate,
 )
 
 _REPO_BY_DIMENSION = {
@@ -28,6 +29,7 @@ _REPO_BY_DIMENSION = {
 _REPO_BY_METRIC = {
     "total_users": repo_get_total_users,
     "avg_coupon_usage_per_user": repo_get_users_avg_coupon_usage_frequency,
+    "avg_purchase_conversion_rate": repo_get_users_avg_purchase_conversion_rate,
 }
 
 
