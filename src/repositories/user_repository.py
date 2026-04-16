@@ -14,6 +14,21 @@ def _fetch_all(query: str):
         conn.close()
 
 
+def get_users_avg_app_usage_frequency():
+    query = dedent(
+        """
+        select
+            ROUND(
+                SUM(avg_app_usage_frequency_per_week * count_users) / SUM(count_users), 
+                0
+            ) as avg_app_usage_frequency
+        from
+            aggregations
+        """
+    )
+    return _fetch_all(query)
+
+
 def get_users_avg_product_views_per_day():
     query = dedent(
         """
@@ -28,6 +43,7 @@ def get_users_avg_product_views_per_day():
     )
     return _fetch_all(query)
 
+
 def get_users_avg_brand_loyalty_score():
     query = dedent(
         """
@@ -41,6 +57,7 @@ def get_users_avg_brand_loyalty_score():
         """
     )
     return _fetch_all(query)
+
 
 def get_users_avg_cart_abandonment_rate():
     query = dedent(

@@ -15,6 +15,7 @@ from src.repositories.user_repository import (
     get_users_avg_cart_abandonment_rate as repo_get_users_avg_cart_abandonment_rate,
     get_users_avg_brand_loyalty_score as repo_get_users_avg_brand_loyalty_score,
     get_users_avg_product_views_per_day as repo_get_users_avg_product_views_per_day,
+    get_users_avg_app_usage_frequency as repo_get_users_avg_app_usage_frequency,
 )
 
 __all__ = [
@@ -32,6 +33,7 @@ __all__ = [
     repo_get_users_avg_purchase_conversion_rate,
     repo_get_users_avg_daily_session_time,
     repo_get_users_avg_cart_abandonment_rate,
-    repo_get_users_avg_brand_loyalty_score, 
+    repo_get_users_avg_brand_loyalty_score,
     repo_get_users_avg_product_views_per_day,
+    repo_get_users_avg_app_usage_frequency,
 ]
