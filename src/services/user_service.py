@@ -24,6 +24,7 @@ from src.repositories import (
     repo_get_users_grouped_by_stress_from_financial_decisions_level_group,  
     repo_get_users_grouped_by_referral_count_group,
     repo_get_users_grouped_by_impulse_buying_score_group,
+    repo_get_users_grouped_by_browse_to_buy_ratio_group,
 )
 
 _REPO_BY_DIMENSION = {
@@ -42,7 +43,8 @@ _REPO_BY_DIMENSION = {
     "social_media_influence_score": repo_get_users_grouped_by_social_media_influence_score_group,
     "stress_from_financial_decisions_level": repo_get_users_grouped_by_stress_from_financial_decisions_level_group,
     "referral_count": repo_get_users_grouped_by_referral_count_group,
-    "impulse_buying_score": repo_get_users_grouped_by_impulse_buying_score_group,
+    "impulse_buying_score": repo_get_users_grouped_by_impulse_buying_score_group,   
+    "browse_to_buy_ratio": repo_get_users_grouped_by_browse_to_buy_ratio_group,
 }
 
 _REPO_BY_METRIC = {

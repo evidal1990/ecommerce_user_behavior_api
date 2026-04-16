@@ -374,6 +374,21 @@ def get_users_grouped_by_impulse_buying_score_group():
     return _fetch_all(query)
 
 
+def get_users_grouped_by_browse_to_buy_ratio_group():
+    query = dedent(
+        """
+        select
+            browse_to_buy_ratio_group,
+            COUNT(id) as total_users
+        from
+            aggregations
+        group by
+            browse_to_buy_ratio_group
+        """
+    )
+    return _fetch_all(query)
+
+
 def get_total_users():
     query = dedent(
         """
