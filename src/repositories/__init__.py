@@ -21,6 +21,7 @@ from src.repositories.user_repository import (
     get_users_grouped_by_brand_loyalty_score_group as repo_get_users_grouped_by_brand_loyalty_score_group,
     get_users_grouped_by_impulse_buying_score_group as repo_get_users_grouped_by_impulse_buying_score_group,
     get_users_grouped_by_social_media_influence_score_group as repo_get_users_grouped_by_social_media_influence_score_group,
+    get_users_grouped_by_stress_from_financial_decisions_level_group as repo_get_users_grouped_by_stress_from_financial_decisions_level_group,
 )
 
 __all__ = [
@@ -46,4 +47,5 @@ __all__ = [
     repo_get_users_grouped_by_brand_loyalty_score_group,
     repo_get_users_grouped_by_impulse_buying_score_group,
     repo_get_users_grouped_by_social_media_influence_score_group,
+    repo_get_users_grouped_by_stress_from_financial_decisions_level_group,
 ]

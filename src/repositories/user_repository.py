@@ -313,6 +313,7 @@ def get_users_grouped_by_brand_loyalty_score_group():
     )
     return _fetch_all(query)
 
+
 def get_users_grouped_by_social_media_influence_score_group():
     query = dedent(
         """
@@ -323,6 +324,21 @@ def get_users_grouped_by_social_media_influence_score_group():
             aggregations
         group by
             social_media_influence_score_group
+        """
+    )
+    return _fetch_all(query)
+
+
+def get_users_grouped_by_stress_from_financial_decisions_level_group():
+    query = dedent(
+        """
+        select
+            stress_from_financial_decisions_level_group,
+            COUNT(id) as total_users
+        from
+            aggregations
+        group by
+            stress_from_financial_decisions_level_group
         """
     )
     return _fetch_all(query)
