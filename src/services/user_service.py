@@ -10,95 +10,57 @@ from src.repositories.user_repository import (
     get_users_by_country as repo_get_users_by_country,
 )
 
+_REPO_BY_DIMENSION = {
+    "country": repo_get_users_by_country,
+    "premium_subscription_group": repo_get_users_by_premium_subscription_group,
+    "education_level": repo_get_users_by_education_level,
+    "gender": repo_get_users_by_gender,
+    "neighborhood": repo_get_users_by_neighborhood,
+    "device_type": repo_get_users_by_device_type,
+    "age_group": repo_get_users_by_age_group,
+    "annual_income_group": repo_get_users_by_annual_income_group,
+}
 
-def users_by_country():
-    columns = repo_get_users_by_country()
-    return [
-        {
-            "country": col[0],
-            "total_users": col[1],
-        }
-        for col in columns
-    ]
+
+def _rows_to_grouped_items(field_key: str, rows: list[tuple]) -> list[dict]:
+    return [{field_key: row[0], "total_users": int(row[1])} for row in rows]
+
+
+def users_by_dimension(dimension: str):
+    fn = _REPO_BY_DIMENSION.get(dimension)
+    if fn is None:
+        raise ValueError(f"Invalid dimension: {dimension}")
+    return _rows_to_grouped_items(dimension, fn())
 
 
 def users_by_premium_subscription_group():
-    columns = repo_get_users_by_premium_subscription_group()
-    return [
-        {
-            "premium_subscription_group": col[0],
-            "total_users": col[1],
-        }
-        for col in columns
-    ]
+    return users_by_dimension("premium_subscription_group")
 
 
 def users_by_education_level():
-    columns = repo_get_users_by_education_level()
-    return [
-        {
-            "education_level": col[0],
-            "total_users": col[1],
-        }
-        for col in columns
-    ]
+    return users_by_dimension("education_level")
 
 
 def users_by_gender():
-    columns = repo_get_users_by_gender()
-    return [
-        {
-            "gender": col[0],
-            "total_users": col[1],
-        }
-        for col in columns
-    ]
+    return users_by_dimension("gender")
 
 
 def users_by_neighborhood():
-    columns = repo_get_users_by_neighborhood()
-    return [
-        {
-            "neighborhood": col[0],
-            "total_users": col[1],
-        }
-        for col in columns
-    ]
+    return users_by_dimension("neighborhood")
 
 
 def users_by_device_type():
-    columns = repo_get_users_by_device_type()
-    return [
-        {
-            "device_type": col[0],
-            "total_users": col[1],
-        }
-        for col in columns
-    ]
+    return users_by_dimension("device_type")
 
 
 def users_by_age_group():
-    columns = repo_get_users_by_age_group()
-    return [
-        {
-            "age_group": col[0],
-            "total_users": col[1],
-        }
-        for col in columns
-    ]
+    return users_by_dimension("age_group")
 
 
 def users_by_annual_income_group():
-    columns = repo_get_users_by_annual_income_group()
-    return [
-        {
-            "annual_income_group": col[0],
-            "total_users": col[1],
-        }
-        for col in columns
-    ]
+    return users_by_dimension("annual_income_group")
 
 
 def total_users():
     rows = repo_get_total_users()
-    return {"total_users": rows[0][0]}
+    return {"total_users": int(rows[0][0])}
