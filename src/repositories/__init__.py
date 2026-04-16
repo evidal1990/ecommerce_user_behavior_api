@@ -9,14 +9,6 @@ from src.repositories.user_repository import (
     get_users_grouped_by_premium_subscription_group as repo_get_users_grouped_by_premium_subscription_group,
     get_users_grouped_by_country as repo_get_users_grouped_by_country,
     get_users_grouped_by_has_children_group as repo_get_users_grouped_by_has_children_group,
-    get_users_avg_coupon_usage_frequency as repo_get_users_avg_coupon_usage_frequency,
-    get_users_avg_purchase_conversion_rate as repo_get_users_avg_purchase_conversion_rate,
-    get_users_avg_daily_session_time as repo_get_users_avg_daily_session_time,
-    get_users_avg_cart_abandonment_rate as repo_get_users_avg_cart_abandonment_rate,
-    get_users_avg_brand_loyalty_score as repo_get_users_avg_brand_loyalty_score,
-    get_users_avg_product_views_per_day as repo_get_users_avg_product_views_per_day,
-    get_users_avg_app_usage_frequency as repo_get_users_avg_app_usage_frequency,
-    get_users_avg_referral_count as repo_get_users_avg_referral_count,
     get_users_grouped_by_household_size_group as repo_get_users_grouped_by_household_size_group,
     get_users_grouped_by_brand_loyalty_score_group as repo_get_users_grouped_by_brand_loyalty_score_group,
     get_users_grouped_by_impulse_buying_score_group as repo_get_users_grouped_by_impulse_buying_score_group,
@@ -41,6 +33,21 @@ from src.repositories.user_repository import (
     get_users_grouped_by_product_category_preference_and_country as repo_get_users_grouped_by_product_category_preference_and_country,
     get_users_grouped_by_product_category_preference_and_age_group as repo_get_users_grouped_by_product_category_preference_and_age_group,
     get_users_grouped_by_product_category_preference_and_annual_income_group as repo_get_users_grouped_by_product_category_preference_and_annual_income_group,
+)
+
+from src.repositories.metrics_repository import (
+    get_users_churn_rate as repo_get_users_churn_rate,
+    get_users_avg_coupon_usage_frequency as repo_get_users_avg_coupon_usage_frequency,
+    get_users_avg_purchase_conversion_rate as repo_get_users_avg_purchase_conversion_rate,
+    get_users_avg_daily_session_time as repo_get_users_avg_daily_session_time,
+    get_users_avg_cart_abandonment_rate as repo_get_users_avg_cart_abandonment_rate,
+    get_users_avg_brand_loyalty_score as repo_get_users_avg_brand_loyalty_score,
+    get_users_avg_product_views_per_day as repo_get_users_avg_product_views_per_day,
+    get_users_avg_app_usage_frequency as repo_get_users_avg_app_usage_frequency,
+    get_users_avg_referral_count as repo_get_users_avg_referral_count,
+    get_users_avg_app_usage_frequency as repo_get_users_avg_app_usage_frequency,
+    get_users_avg_referral_count as repo_get_users_avg_referral_count,
+    get_users_avg_app_usage_frequency as repo_get_users_avg_app_usage_frequency,
 )
 
 __all__ = [
@@ -86,4 +93,5 @@ __all__ = [
     repo_get_users_grouped_by_product_category_preference_and_country,
     repo_get_users_grouped_by_product_category_preference_and_age_group,
     repo_get_users_grouped_by_product_category_preference_and_annual_income_group,
+    repo_get_users_churn_rate,
 ]

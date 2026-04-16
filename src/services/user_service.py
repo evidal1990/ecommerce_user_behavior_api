@@ -1,5 +1,4 @@
 from src.repositories import (
-    repo_get_total_users,
     repo_get_users_grouped_by_country,
     repo_get_users_grouped_by_premium_subscription_group,
     repo_get_users_grouped_by_education_level,
@@ -9,14 +8,14 @@ from src.repositories import (
     repo_get_users_grouped_by_age_group,
     repo_get_users_grouped_by_annual_income_group,
     repo_get_users_grouped_by_has_children_group,
-    repo_get_users_avg_coupon_usage_frequency,
-    repo_get_users_avg_purchase_conversion_rate,
-    repo_get_users_avg_daily_session_time,
-    repo_get_users_avg_cart_abandonment_rate,
-    repo_get_users_avg_brand_loyalty_score,
-    repo_get_users_avg_product_views_per_day,
-    repo_get_users_avg_app_usage_frequency,
-    repo_get_users_avg_referral_count,
+    repo_get_users_grouped_by_preferred_payment_method,
+    repo_get_users_grouped_by_preferred_payment_method_and_country,
+    repo_get_users_grouped_by_preferred_payment_method_and_age_group,
+    repo_get_users_grouped_by_preferred_payment_method_and_annual_income_group,
+    repo_get_users_grouped_by_product_category_preference,
+    repo_get_users_grouped_by_product_category_preference_and_country,
+    repo_get_users_grouped_by_product_category_preference_and_age_group,
+    repo_get_users_grouped_by_product_category_preference_and_annual_income_group,
     repo_get_users_grouped_by_household_size_group,
     repo_get_users_grouped_by_brand_loyalty_score_group,
     repo_get_users_grouped_by_impulse_buying_score_group,
@@ -29,18 +28,9 @@ from src.repositories import (
     repo_get_users_grouped_by_purchase_conversion_rate_group,
     repo_get_users_grouped_by_social_sharing_frequency_group,
     repo_get_users_grouped_by_cart_abandonment_rate_group,
-    repo_get_users_grouped_by_premium_subscription_group,
     repo_get_users_grouped_by_premium_subscription_group_and_country,
     repo_get_users_grouped_by_premium_subscription_group_and_age_group,
     repo_get_users_grouped_by_premium_subscription_group_and_annual_income_group,
-    repo_get_users_grouped_by_preferred_payment_method,
-    repo_get_users_grouped_by_preferred_payment_method_and_country,
-    repo_get_users_grouped_by_preferred_payment_method_and_age_group,
-    repo_get_users_grouped_by_preferred_payment_method_and_annual_income_group,
-    repo_get_users_grouped_by_product_category_preference,
-    repo_get_users_grouped_by_product_category_preference_and_country,
-    repo_get_users_grouped_by_product_category_preference_and_age_group,
-    repo_get_users_grouped_by_product_category_preference_and_annual_income_group,
 )
 
 _REPO_BY_DIMENSION = {
@@ -77,18 +67,6 @@ _REPO_BY_DIMENSION = {
     "product_category_preference_by_country": repo_get_users_grouped_by_product_category_preference_and_country,
     "product_category_preference_by_age_group": repo_get_users_grouped_by_product_category_preference_and_age_group,
     "product_category_preference_by_annual_income": repo_get_users_grouped_by_product_category_preference_and_annual_income_group,
-}
-
-_REPO_BY_METRIC = {
-    "total_users": repo_get_total_users,
-    "avg_coupon_usage_per_user": repo_get_users_avg_coupon_usage_frequency,
-    "avg_purchase_conversion_rate": repo_get_users_avg_purchase_conversion_rate,
-    "avg_daily_session_time": repo_get_users_avg_daily_session_time,
-    "avg_cart_abandonment_rate": repo_get_users_avg_cart_abandonment_rate,
-    "avg_brand_loyalty_score": repo_get_users_avg_brand_loyalty_score,
-    "avg_product_views_per_day": repo_get_users_avg_product_views_per_day,
-    "avg_app_usage_frequency": repo_get_users_avg_app_usage_frequency,
-    "avg_referral_count": repo_get_users_avg_referral_count,
 }
 
 _MULTI_DIMENSION_FIELD_NAMES: dict[str, list[str]] = {
@@ -148,7 +126,6 @@ def _dimension_field_names(group_by: str, dimension_count: int) -> list[str]:
 def _rows_to_grouped_items(
     field_key: str,
     rows: list[tuple],
-    metric: str,
 ):
     if not rows:
         return []
@@ -160,35 +137,17 @@ def _rows_to_grouped_items(
         if len(row) != width:
             raise ValueError("all rows must have the same number of columns")
         item = {field_names[i]: row[i] for i in range(dim_count)}
-        item[metric] = float(row[-1])
+        item["total_users"] = float(row[-1])
         result.append(item)
     return result
 
 
 def users_analytics(
     group_by: str | None = None,
-    metric: str = "total_users",
 ):
-    if group_by:
-        fn = _REPO_BY_DIMENSION.get(group_by)
-        if fn is None:
-            raise ValueError(f"Invalid dimension: {group_by}")
-
-        rows = fn()
-        return _rows_to_grouped_items(
-            group_by,
-            rows,
-            metric,
-        )
-
-    fn = _REPO_BY_METRIC.get(metric)
+    fn = _REPO_BY_DIMENSION.get(group_by)
     if fn is None:
-        raise ValueError(f"Invalid metric: {metric}")
+        raise ValueError(f"Invalid dimension: {group_by}")
 
     rows = fn()
-    return {
-        "metric": metric,
-        "value": float(
-            rows[0][0],
-        ),
-    }
+    return _rows_to_grouped_items(group_by, rows)
