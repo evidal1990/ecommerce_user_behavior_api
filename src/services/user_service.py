@@ -13,6 +13,7 @@ from src.repositories import (
     repo_get_users_avg_purchase_conversion_rate,
     repo_get_users_avg_daily_session_time,
     repo_get_users_avg_cart_abandonment_rate,
+    repo_get_users_avg_brand_loyalty_score,
 )
 
 _REPO_BY_DIMENSION = {
@@ -33,6 +34,7 @@ _REPO_BY_METRIC = {
     "avg_purchase_conversion_rate": repo_get_users_avg_purchase_conversion_rate,
     "avg_daily_session_time": repo_get_users_avg_daily_session_time,
     "avg_cart_abandonment_rate": repo_get_users_avg_cart_abandonment_rate,
+    "avg_brand_loyalty_score": repo_get_users_avg_brand_loyalty_score,
 }
 
 
