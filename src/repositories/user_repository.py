@@ -344,6 +344,21 @@ def get_users_grouped_by_stress_from_financial_decisions_level_group():
     return _fetch_all(query)
 
 
+def get_users_grouped_by_referral_count_group():
+    query = dedent(
+        """
+        select
+            referral_count_group,
+            COUNT(id) as total_users
+        from
+            aggregations
+        group by
+            referral_count_group
+        """
+    )
+    return _fetch_all(query)
+
+
 def get_total_users():
     query = dedent(
         """
