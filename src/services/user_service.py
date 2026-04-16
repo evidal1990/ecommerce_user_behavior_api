@@ -19,7 +19,8 @@ from src.repositories import (
     repo_get_users_avg_referral_count,
     repo_get_users_grouped_by_household_size_group,
     repo_get_users_grouped_by_brand_loyalty_score_group,    
-    repo_get_users_grouped_by_impulse_buying_score_group,
+    repo_get_users_grouped_by_impulse_buying_score_group,   
+    repo_get_users_grouped_by_social_media_influence_score_group,
 )
 
 _REPO_BY_DIMENSION = {
@@ -35,6 +36,7 @@ _REPO_BY_DIMENSION = {
     "household_size_group": repo_get_users_grouped_by_household_size_group,
     "brand_loyalty_score_group": repo_get_users_grouped_by_brand_loyalty_score_group,
     "impulse_buying_score_group": repo_get_users_grouped_by_impulse_buying_score_group,
+    "social_media_influence_score_group": repo_get_users_grouped_by_social_media_influence_score_group,
 }
 
 _REPO_BY_METRIC = {
