@@ -404,6 +404,21 @@ def get_users_grouped_by_return_rate_group():
     return _fetch_all(query)
 
 
+def get_users_grouped_by_purchase_conversion_rate_group():
+    query = dedent(
+        """
+        select
+            purchase_conversion_rate_group,
+            COUNT(id) as total_users
+        from
+            aggregations
+        group by
+            purchase_conversion_rate_group
+        """
+    )
+    return _fetch_all(query)
+
+
 def get_total_users():
     query = dedent(
         """

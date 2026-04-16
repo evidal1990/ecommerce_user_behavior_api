@@ -26,6 +26,7 @@ from src.repositories import (
     repo_get_users_grouped_by_impulse_buying_score_group,
     repo_get_users_grouped_by_browse_to_buy_ratio_group,
     repo_get_users_grouped_by_return_rate_group,
+    repo_get_users_grouped_by_purchase_conversion_rate_group,
 )
 
 _REPO_BY_DIMENSION = {
@@ -47,6 +48,7 @@ _REPO_BY_DIMENSION = {
     "impulse_buying_score": repo_get_users_grouped_by_impulse_buying_score_group,   
     "browse_to_buy_ratio": repo_get_users_grouped_by_browse_to_buy_ratio_group,
     "return_rate": repo_get_users_grouped_by_return_rate_group,
+    "purchase_conversion_rate": repo_get_users_grouped_by_purchase_conversion_rate_group,
 }
 
 _REPO_BY_METRIC = {
