@@ -11,6 +11,8 @@ from src.repositories.user_repository import (
     get_users_grouped_by_has_children_group as repo_get_users_grouped_by_has_children_group,
     get_users_avg_coupon_usage_frequency as repo_get_users_avg_coupon_usage_frequency,
     get_users_avg_purchase_conversion_rate as repo_get_users_avg_purchase_conversion_rate,
+    get_users_avg_daily_session_time as repo_get_users_avg_daily_session_time,
+    get_users_avg_cart_abandonment_rate as repo_get_users_avg_cart_abandonment_rate,
 )
 
 __all__ = [
@@ -26,4 +28,6 @@ __all__ = [
     repo_get_users_grouped_by_has_children_group,
     repo_get_users_avg_coupon_usage_frequency,
     repo_get_users_avg_purchase_conversion_rate,
+    repo_get_users_avg_daily_session_time,
+    repo_get_users_avg_cart_abandonment_rate,
 ]

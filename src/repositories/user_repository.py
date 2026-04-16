@@ -14,6 +14,36 @@ def _fetch_all(query: str):
         conn.close()
 
 
+def get_users_avg_cart_abandonment_rate():
+    query = dedent(
+        """
+        select
+            ROUND(
+                SUM(avg_cart_abandonment_rate * count_users) / SUM(count_users), 
+                1
+            ) as avg_cart_abandonment_rate
+        from
+            aggregations
+        """
+    )
+    return _fetch_all(query)
+
+
+def get_users_avg_daily_session_time():
+    query = dedent(
+        """
+        select
+            ROUND(
+                SUM(avg_daily_session_time_minutes * count_users) / SUM(count_users), 
+                1
+            ) as avg_daily_session_time
+        from
+            aggregations
+        """
+    )
+    return _fetch_all(query)
+
+
 def get_users_avg_purchase_conversion_rate():
     query = dedent(
         """
