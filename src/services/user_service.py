@@ -6,7 +6,19 @@ from src.repositories.user_repository import (
     get_users_by_neighborhood as repo_get_users_by_neighborhood,
     get_users_by_gender as repo_get_users_by_gender,
     get_users_by_education_level as repo_get_users_by_education_level,
+    get_users_by_premium_subscription_group as repo_get_users_by_premium_subscription_group,
 )
+
+
+def users_by_premium_subscription_group():
+    columns = repo_get_users_by_premium_subscription_group()
+    return [
+        {
+            "premium_subscription_group": col[0],
+            "total_users": col[1],
+        }
+        for col in columns
+    ]
 
 
 def users_by_education_level():

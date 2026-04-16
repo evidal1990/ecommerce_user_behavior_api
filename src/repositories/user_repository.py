@@ -14,6 +14,21 @@ def _fetch_all(query: str):
         conn.close()
 
 
+def get_users_by_premium_subscription_group():
+    query = dedent(
+        """
+        select
+            premium_subscription_group,
+            COUNT(id) as total_users
+        from
+            aggregations
+        group by
+            premium_subscription_group
+        """
+    )
+    return _fetch_all(query)
+
+
 def get_users_by_education_level():
     query = dedent(
         """
