@@ -14,7 +14,21 @@ def _fetch_all(query: str):
         conn.close()
 
 
-def get_users_by_country():
+def get_users_grouped_by_has_children_group():
+    query = dedent(
+        """
+        select
+            has_children_group,
+            COUNT(id) as total_users
+        from
+            aggregations
+        group by
+            has_children_group
+        """
+    )
+    return _fetch_all(query)
+
+def get_users_grouped_by_country():
     query = dedent(
         """
         select
@@ -29,7 +43,7 @@ def get_users_by_country():
     return _fetch_all(query)
 
 
-def get_users_by_premium_subscription_group():
+def get_users_grouped_by_premium_subscription_group():
     query = dedent(
         """
         select
@@ -44,7 +58,7 @@ def get_users_by_premium_subscription_group():
     return _fetch_all(query)
 
 
-def get_users_by_education_level():
+def get_users_grouped_by_education_level():
     query = dedent(
         """
         select
@@ -59,7 +73,7 @@ def get_users_by_education_level():
     return _fetch_all(query)
 
 
-def get_users_by_gender():
+def get_users_grouped_by_gender():
     query = dedent(
         """
         select
@@ -74,7 +88,7 @@ def get_users_by_gender():
     return _fetch_all(query)
 
 
-def get_users_by_neighborhood():
+def get_users_grouped_by_neighborhood():
     query = dedent(
         """
         select
@@ -89,7 +103,7 @@ def get_users_by_neighborhood():
     return _fetch_all(query)
 
 
-def get_users_by_device_type():
+def get_users_grouped_by_device_type():
     query = dedent(
         """
         select
@@ -104,7 +118,7 @@ def get_users_by_device_type():
     return _fetch_all(query)
 
 
-def get_users_by_age_group():
+def get_users_grouped_by_age_group():
     query = dedent(
         """
         select
@@ -119,7 +133,7 @@ def get_users_by_age_group():
     return _fetch_all(query)
 
 
-def get_users_by_annual_income_group():
+def get_users_grouped_by_annual_income_group():
     query = dedent(
         """
         select
