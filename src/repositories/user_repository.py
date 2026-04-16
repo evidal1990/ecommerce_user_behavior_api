@@ -14,6 +14,21 @@ def _fetch_all(query: str):
         conn.close()
 
 
+def get_users_avg_referral_count():
+    query = dedent(
+        """
+        select
+            ROUND(
+                SUM(avg_referral_count * count_users) / SUM(count_users), 
+                0
+            ) as avg_referral_count
+        from
+            aggregations
+        """
+    )
+    return _fetch_all(query)
+
+
 def get_users_avg_app_usage_frequency():
     query = dedent(
         """

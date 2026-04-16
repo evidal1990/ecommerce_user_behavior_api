@@ -16,6 +16,7 @@ from src.repositories.user_repository import (
     get_users_avg_brand_loyalty_score as repo_get_users_avg_brand_loyalty_score,
     get_users_avg_product_views_per_day as repo_get_users_avg_product_views_per_day,
     get_users_avg_app_usage_frequency as repo_get_users_avg_app_usage_frequency,
+    get_users_avg_referral_count as repo_get_users_avg_referral_count,
 )
 
 __all__ = [
@@ -36,4 +37,5 @@ __all__ = [
     repo_get_users_avg_brand_loyalty_score,
     repo_get_users_avg_product_views_per_day,
     repo_get_users_avg_app_usage_frequency,
+    repo_get_users_avg_referral_count,
 ]
