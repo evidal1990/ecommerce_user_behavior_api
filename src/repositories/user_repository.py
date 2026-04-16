@@ -14,6 +14,21 @@ def _fetch_all(query: str):
         conn.close()
 
 
+def get_users_avg_coupon_usage_frequency():
+    query = dedent(
+        """
+        select
+            ROUND(
+                SUM(avg_coupon_usage_frequency * count_users) / SUM(count_users), 
+                1
+            ) as avg_coupon_usage
+        from
+            aggregations
+        """
+    )
+    return _fetch_all(query)
+
+
 def get_users_grouped_by_has_children_group():
     query = dedent(
         """
@@ -27,6 +42,7 @@ def get_users_grouped_by_has_children_group():
         """
     )
     return _fetch_all(query)
+
 
 def get_users_grouped_by_country():
     query = dedent(

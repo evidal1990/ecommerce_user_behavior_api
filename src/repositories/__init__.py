@@ -9,6 +9,7 @@ from src.repositories.user_repository import (
     get_users_grouped_by_premium_subscription_group as repo_get_users_grouped_by_premium_subscription_group,
     get_users_grouped_by_country as repo_get_users_grouped_by_country,
     get_users_grouped_by_has_children_group as repo_get_users_grouped_by_has_children_group,
+    get_users_avg_coupon_usage_frequency as repo_get_users_avg_coupon_usage_frequency,
 )
 
 __all__ = [
@@ -22,4 +23,5 @@ __all__ = [
     repo_get_users_grouped_by_premium_subscription_group,
     repo_get_users_grouped_by_country,
     repo_get_users_grouped_by_has_children_group,
+    repo_get_users_avg_coupon_usage_frequency,
 ]
