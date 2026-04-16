@@ -23,24 +23,26 @@ from src.repositories import (
     repo_get_users_grouped_by_social_media_influence_score_group,
     repo_get_users_grouped_by_stress_from_financial_decisions_level_group,  
     repo_get_users_grouped_by_referral_count_group,
+    repo_get_users_grouped_by_impulse_buying_score_group,
 )
 
 _REPO_BY_DIMENSION = {
     "country": repo_get_users_grouped_by_country,
-    "premium_subscription_group": repo_get_users_grouped_by_premium_subscription_group,
+    "premium_subscription": repo_get_users_grouped_by_premium_subscription_group,
     "education_level": repo_get_users_grouped_by_education_level,
     "gender": repo_get_users_grouped_by_gender,
     "neighborhood": repo_get_users_grouped_by_neighborhood,
     "device_type": repo_get_users_grouped_by_device_type,
     "age_group": repo_get_users_grouped_by_age_group,
-    "annual_income_group": repo_get_users_grouped_by_annual_income_group,
-    "has_children_group": repo_get_users_grouped_by_has_children_group,
-    "household_size_group": repo_get_users_grouped_by_household_size_group,
-    "brand_loyalty_score_group": repo_get_users_grouped_by_brand_loyalty_score_group,
-    "impulse_buying_score_group": repo_get_users_grouped_by_impulse_buying_score_group,
-    "social_media_influence_score_group": repo_get_users_grouped_by_social_media_influence_score_group,
-    "stress_from_financial_decisions_level_group": repo_get_users_grouped_by_stress_from_financial_decisions_level_group,
-    "referral_count_group": repo_get_users_grouped_by_referral_count_group,
+    "annual_income": repo_get_users_grouped_by_annual_income_group,
+    "has_children": repo_get_users_grouped_by_has_children_group,
+    "household_size": repo_get_users_grouped_by_household_size_group,
+    "brand_loyalty_score": repo_get_users_grouped_by_brand_loyalty_score_group,
+    "impulse_buying_score": repo_get_users_grouped_by_impulse_buying_score_group,
+    "social_media_influence_score": repo_get_users_grouped_by_social_media_influence_score_group,
+    "stress_from_financial_decisions_level": repo_get_users_grouped_by_stress_from_financial_decisions_level_group,
+    "referral_count": repo_get_users_grouped_by_referral_count_group,
+    "impulse_buying_score": repo_get_users_grouped_by_impulse_buying_score_group,
 }
 
 _REPO_BY_METRIC = {

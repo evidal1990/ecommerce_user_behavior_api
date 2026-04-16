@@ -359,6 +359,21 @@ def get_users_grouped_by_referral_count_group():
     return _fetch_all(query)
 
 
+def get_users_grouped_by_impulse_buying_score_group():
+    query = dedent(
+        """
+        select
+            impulse_buying_score_group,
+            COUNT(id) as total_users
+        from
+            aggregations
+        group by
+            impulse_buying_score_group
+        """
+    )
+    return _fetch_all(query)
+
+
 def get_total_users():
     query = dedent(
         """
