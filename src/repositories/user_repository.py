@@ -14,6 +14,20 @@ def _fetch_all(query: str):
         conn.close()
 
 
+def get_users_avg_product_views_per_day():
+    query = dedent(
+        """
+        select
+            ROUND(
+                SUM(avg_product_views_per_day * count_users) / SUM(count_users), 
+                0
+            ) as avg_product_views_per_day
+        from
+            aggregations
+        """
+    )
+    return _fetch_all(query)
+
 def get_users_avg_brand_loyalty_score():
     query = dedent(
         """
