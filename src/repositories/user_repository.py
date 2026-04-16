@@ -282,7 +282,7 @@ def get_users_grouped_by_household_size_group():
     )
     return _fetch_all(query)
 
-def get_users_grouped_by_brand_loyalty_score_group():
+def get_users_grouped_by_impulse_buying_score_group():
     query = dedent(
         """
         select
@@ -292,6 +292,20 @@ def get_users_grouped_by_brand_loyalty_score_group():
             aggregations
         group by
             brand_loyalty_score_group
+        """
+    )
+    return _fetch_all(query)
+
+def get_users_grouped_by_brand_loyalty_score_group():
+    query = dedent(
+        """
+        select
+            impulse_buying_score_group,
+            COUNT(id) as total_users
+        from
+            aggregations
+        group by
+            impulse_buying_score_group
         """
     )
     return _fetch_all(query)
