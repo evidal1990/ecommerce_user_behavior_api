@@ -515,6 +515,72 @@ def get_users_grouped_by_premium_subscription_group_and_annual_income_group():
     return _fetch_all(query)
 
 
+def get_users_grouped_by_preferred_payment_method():
+    query = dedent(
+        """
+        select
+            preferred_payment_method,
+            COUNT(id) as total_users
+        from
+            aggregations
+        group by
+            preferred_payment_method
+        """
+    )
+    return _fetch_all(query)
+
+
+def get_users_grouped_by_preferred_payment_method_and_country():
+    query = dedent(
+        """
+        select
+            country,
+            preferred_payment_method,
+            COUNT(id) as total_users
+        from
+            aggregations
+        group by
+            country,
+            preferred_payment_method
+        """
+    )
+    return _fetch_all(query)
+
+
+def get_users_grouped_by_preferred_payment_method_and_age_group():
+    query = dedent(
+        """
+        select
+            age_group,
+            preferred_payment_method,
+            COUNT(id) as total_users
+        from
+            aggregations
+        group by
+            age_group,
+            preferred_payment_method
+        """
+    )
+    return _fetch_all(query)
+
+
+def get_users_grouped_by_preferred_payment_method_and_annual_income_group():
+    query = dedent(
+        """
+        select
+            annual_income_group,
+            preferred_payment_method,
+            COUNT(id) as total_users
+        from
+            aggregations
+        group by
+            annual_income_group,
+            preferred_payment_method
+        """
+    )
+    return _fetch_all(query)
+
+
 def get_total_users():
     query = dedent(
         """

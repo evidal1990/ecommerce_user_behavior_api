@@ -33,6 +33,10 @@ from src.repositories.user_repository import (
     get_users_grouped_by_premium_subscription_group_and_country as repo_get_users_grouped_by_premium_subscription_group_and_country,
     get_users_grouped_by_premium_subscription_group_and_age_group as repo_get_users_grouped_by_premium_subscription_group_and_age_group,
     get_users_grouped_by_premium_subscription_group_and_annual_income_group as repo_get_users_grouped_by_premium_subscription_group_and_annual_income_group,
+    get_users_grouped_by_preferred_payment_method as repo_get_users_grouped_by_preferred_payment_method,
+    get_users_grouped_by_preferred_payment_method_and_country as repo_get_users_grouped_by_preferred_payment_method_and_country,
+    get_users_grouped_by_preferred_payment_method_and_age_group as repo_get_users_grouped_by_preferred_payment_method_and_age_group,
+    get_users_grouped_by_preferred_payment_method_and_annual_income_group as repo_get_users_grouped_by_preferred_payment_method_and_annual_income_group,
 )
 
 __all__ = [
@@ -70,4 +74,8 @@ __all__ = [
     repo_get_users_grouped_by_premium_subscription_group_and_country,
     repo_get_users_grouped_by_premium_subscription_group_and_age_group,
     repo_get_users_grouped_by_premium_subscription_group_and_annual_income_group,
+    repo_get_users_grouped_by_preferred_payment_method,
+    repo_get_users_grouped_by_preferred_payment_method_and_country,
+    repo_get_users_grouped_by_preferred_payment_method_and_age_group,
+    repo_get_users_grouped_by_preferred_payment_method_and_annual_income_group,
 ]
