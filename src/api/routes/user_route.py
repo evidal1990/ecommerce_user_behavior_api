@@ -5,6 +5,13 @@ from src.services import user_service
 router = APIRouter(prefix="/users", tags=["Users"])
 
 
+@router.get("/device-type")
+def users_by_device_type():
+    return execute_or_http_error(
+        lambda: user_service.users_by_device_type(),
+    )
+
+
 @router.get("/age-group")
 def users_by_age_group():
     return execute_or_http_error(

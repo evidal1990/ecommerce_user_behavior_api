@@ -14,6 +14,20 @@ def _fetch_all(query: str):
         conn.close()
 
 
+def get_users_by_device_type():
+    query = dedent(
+        """
+        select
+            device_type,
+            COUNT(id) as total_users
+        from
+            aggregations
+        group by
+            device_type
+        """
+    )
+    return _fetch_all(query)
+
 def get_users_by_age_group():
     query = dedent(
         """
