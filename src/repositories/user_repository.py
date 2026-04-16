@@ -14,6 +14,20 @@ def _fetch_all(query: str):
         conn.close()
 
 
+def get_users_by_neighborhood():
+    query = dedent(
+        """
+        select
+            urban_rural as neighborhood,
+            COUNT(id) as total_users
+        from
+            aggregations
+        group by
+            urban_rural
+        """
+    )
+    return _fetch_all(query)
+
 def get_users_by_device_type():
     query = dedent(
         """
