@@ -14,6 +14,21 @@ def _fetch_all(query: str):
         conn.close()
 
 
+def get_users_by_country():
+    query = dedent(
+        """
+        select
+            country,
+            COUNT(id) as total_users
+        from
+            aggregations
+        group by
+            country
+        """
+    )
+    return _fetch_all(query)
+
+
 def get_users_by_premium_subscription_group():
     query = dedent(
         """
