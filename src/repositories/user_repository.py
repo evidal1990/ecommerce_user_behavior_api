@@ -282,6 +282,20 @@ def get_users_grouped_by_household_size_group():
     )
     return _fetch_all(query)
 
+def get_users_grouped_by_brand_loyalty_score_group():
+    query = dedent(
+        """
+        select
+            brand_loyalty_score_group,
+            COUNT(id) as total_users
+        from
+            aggregations
+        group by
+            brand_loyalty_score_group
+        """
+    )
+    return _fetch_all(query)
+
 
 def get_total_users():
     query = dedent(
