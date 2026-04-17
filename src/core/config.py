@@ -34,7 +34,9 @@ class Settings:
     )
 
     # Session pooler host (Supabase Connect → Session pooler). SUPABASE_DB_HOST accepted as alias.
-    DB_POOLER_HOST = _strip_env("SUPABASE_POOLER_HOST") or _strip_env("SUPABASE_DB_HOST")
+    DB_POOLER_HOST = _strip_env("SUPABASE_POOLER_HOST") or _strip_env(
+        "SUPABASE_DB_HOST"
+    )
     DB_NAME = _strip_env("SUPABASE_DB_NAME")
     DB_USER = _strip_env("SUPABASE_DB_USER")
     _raw_password = os.getenv("SUPABASE_DB_PASSWORD")
@@ -42,6 +44,7 @@ class Settings:
     DB_PORT = _strip_env("SUPABASE_DB_PORT")
     DB_SSLMODE = (os.getenv("DB_SSLMODE") or "require").strip() or "require"
     DB_GSSENCMODE = _strip_env("DB_GSSENCMODE")
+    API_KEY = os.getenv("API_KEY")
 
 
 settings = Settings()

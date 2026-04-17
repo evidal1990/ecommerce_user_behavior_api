@@ -1,4 +1,9 @@
-from fastapi import APIRouter, Query
+from fastapi import (
+    APIRouter,
+    Query,
+    Depends,
+)
+from src.api.dependencies import get_api_key
 from src.api.route_helpers import execute_or_http_error
 from src.services import user_service
 
@@ -7,6 +12,7 @@ router = APIRouter(prefix="/users", tags=["Users"])
 
 @router.get("")
 def users_root(
+    api_key: str = Depends(get_api_key),
     group_by: str | None = Query(
         None,
         description="Ex.: country, gender, education_level",
