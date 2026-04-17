@@ -9,6 +9,7 @@ from src.repositories import (
     repo_get_users_avg_app_usage_frequency,
     repo_get_users_avg_referral_count,
     repo_get_users_churn_rate,
+    repo_get_users_nps,
 )
 
 _REPO_BY_METRIC = {
@@ -21,6 +22,7 @@ _REPO_BY_METRIC = {
     "avg_app_usage_frequency": repo_get_users_avg_app_usage_frequency,
     "avg_referral_count": repo_get_users_avg_referral_count,
     "churn_rate": repo_get_users_churn_rate,
+    "net_promoter_score": repo_get_users_nps,
     "total_users": repo_get_total_users,
 }
 

@@ -152,6 +152,30 @@ def get_users_churn_rate():
     return _fetch_all(query)
 
 
+def get_users_nps():
+    query = dedent(
+        """
+        select
+              ROUND(((
+                SUM(
+                    case
+                        when brand_loyalty_score_group = 'Promoters' then count_users
+                        else 0
+                    end
+                ) - 
+                SUM(
+                    case
+                        when brand_loyalty_score_group = 'Detractors' then count_users
+                        else 0
+                    end
+                )
+            ) * 1.0 / SUM(count_users) * 100 + 100) / 2, 0) as nps_0_100
+        from
+            aggregations
+        """
+    )
+    return _fetch_all(query)
+
 
 def get_total_users():
     query = dedent(

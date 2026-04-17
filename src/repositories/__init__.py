@@ -48,10 +48,13 @@ from src.repositories.metrics_repository import (
     get_users_avg_referral_count as repo_get_users_avg_referral_count,
     get_users_avg_app_usage_frequency as repo_get_users_avg_app_usage_frequency,
     get_users_churn_rate as repo_get_users_churn_rate,
+    get_users_nps as repo_get_users_nps,
 )
 
 __all__ = [
     repo_get_total_users,
+    repo_get_users_churn_rate,
+    repo_get_users_nps,
     repo_get_users_grouped_by_annual_income_group,
     repo_get_users_grouped_by_age_group,
     repo_get_users_grouped_by_device_type,
@@ -93,5 +96,4 @@ __all__ = [
     repo_get_users_grouped_by_product_category_preference_and_country,
     repo_get_users_grouped_by_product_category_preference_and_age_group,
     repo_get_users_grouped_by_product_category_preference_and_annual_income_group,
-    repo_get_users_churn_rate,
 ]
