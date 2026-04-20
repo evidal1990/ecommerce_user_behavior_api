@@ -1,3 +1,4 @@
+from src.services.base_service import grouped_dicts_to_dimension_value
 from src.repositories import (
     repo_get_total_users,
     repo_get_users_avg_coupon_usage_frequency,
@@ -66,8 +67,5 @@ def metrics_analytics(
         raise ValueError(f"Invalid metric: {metric}")
 
     rows = fn()
-    return _rows_to_grouped_items(
-        group_by,
-        rows,
-        metric,
-    )
+    items = _rows_to_grouped_items(metric, rows, metric)
+    return grouped_dicts_to_dimension_value(items, value_key=metric)

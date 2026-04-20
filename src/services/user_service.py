@@ -1,3 +1,4 @@
+from src.services.base_service import grouped_dicts_to_dimension_value
 from src.repositories import (
     repo_get_users_grouped_by_country,
     repo_get_users_grouped_by_premium_subscription_group,
@@ -150,4 +151,5 @@ def users_analytics(
         raise ValueError(f"Invalid dimension: {group_by}")
 
     rows = fn()
-    return _rows_to_grouped_items(group_by, rows)
+    items = _rows_to_grouped_items(group_by, rows)
+    return grouped_dicts_to_dimension_value(items, value_key="total_users")
