@@ -32,6 +32,8 @@ from src.repositories.user_repository import (
     get_users_grouped_by_product_category_preference_and_country as repo_get_users_grouped_by_product_category_preference_and_country,
     get_users_grouped_by_product_category_preference_and_age_group as repo_get_users_grouped_by_product_category_preference_and_age_group,
     get_users_grouped_by_product_category_preference_and_annual_income_group as repo_get_users_grouped_by_product_category_preference_and_annual_income_group,
+    get_top_countries as repo_get_top_countries,
+    get_top_product_categories as repo_get_top_product_categories,
 )
 
 from src.repositories.metrics_repository import (
@@ -49,8 +51,6 @@ from src.repositories.metrics_repository import (
     get_users_avg_app_usage_frequency as repo_get_users_avg_app_usage_frequency,
     get_users_churn_rate as repo_get_users_churn_rate,
     get_users_nps as repo_get_users_nps,
-    get_top_countries as repo_get_top_countries,
-    get_top_categories as repo_get_top_product_categories,
 )
 
 __all__ = [

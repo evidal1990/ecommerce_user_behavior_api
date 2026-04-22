@@ -544,7 +544,7 @@ def get_top_countries():
     return _fetch_all(query)[:5]
 
 
-def get_top_categories():
+def get_top_product_categories():
     query = dedent(
         """
         select
