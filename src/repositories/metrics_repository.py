@@ -187,37 +187,3 @@ def get_total_users():
         """
     )
     return _fetch_all(query)
-
-
-def get_top_countries():
-    query = dedent(
-        """
-        select
-            country,
-            COUNT(id) as total_users
-        from
-            aggregations
-        group by
-            country
-        order by
-            total_users desc
-        """
-    )
-    return _fetch_all(query)[:5]
-
-
-def get_top_categories():
-    query = dedent(
-        """
-        select
-            product_category_preference,
-            COUNT(id) as total_users
-        from
-            aggregations
-        group by
-            product_category_preference
-        order by
-            total_users desc
-        """
-    )
-    return _fetch_all(query)[:5]
