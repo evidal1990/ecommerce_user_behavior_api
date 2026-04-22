@@ -541,7 +541,7 @@ def get_top_countries():
             total_users desc
         """
     )
-    return _fetch_all(query)[:5]
+    return _fetch_all(query)[:3]
 
 
 def get_top_product_categories():
@@ -558,4 +558,4 @@ def get_top_product_categories():
             total_users desc
         """
     )
-    return _fetch_all(query)[:5]
+    return _fetch_all(query)[:3]
