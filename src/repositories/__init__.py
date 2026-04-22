@@ -50,7 +50,7 @@ from src.repositories.metrics_repository import (
     get_users_churn_rate as repo_get_users_churn_rate,
     get_users_nps as repo_get_users_nps,
     get_top_countries as repo_get_top_countries,
-    get_top_categories as repo_get_top_categories,
+    get_top_categories as repo_get_top_product_categories,
 )
 
 __all__ = [
@@ -99,5 +99,5 @@ __all__ = [
     repo_get_users_grouped_by_product_category_preference_and_age_group,
     repo_get_users_grouped_by_product_category_preference_and_annual_income_group,
     repo_get_top_countries,
-    repo_get_top_categories,
+    repo_get_top_product_categories,
 ]

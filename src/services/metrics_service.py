@@ -12,7 +12,7 @@ from src.repositories import (
     repo_get_users_churn_rate,
     repo_get_users_nps,
     repo_get_top_countries,
-    repo_get_top_categories,
+    repo_get_top_product_categories,
 )
 
 _REPO_BY_METRIC = {
@@ -28,7 +28,7 @@ _REPO_BY_METRIC = {
     "net_promoter_score": repo_get_users_nps,
     "total_users": repo_get_total_users,
     "top_countries": repo_get_top_countries,
-    "top_categories": repo_get_top_categories,
+    "top_product_categories": repo_get_top_product_categories,
 }
 
 
