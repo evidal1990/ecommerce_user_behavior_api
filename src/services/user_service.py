@@ -34,10 +34,14 @@ from src.repositories import (
     repo_get_users_grouped_by_premium_subscription_group_and_annual_income_group,
     repo_get_top_countries,
     repo_get_top_product_categories,
+    repo_get_users_grouped_by_relationship_status,
+    repo_get_users_grouped_by_shopping_time_of_day,
 )
 
 _REPO_BY_DIMENSION = {
     "country": repo_get_users_grouped_by_country,
+    "relationship_status": repo_get_users_grouped_by_relationship_status,
+    "shopping_time_of_day": repo_get_users_grouped_by_shopping_time_of_day,
     "premium_subscription": repo_get_users_grouped_by_premium_subscription_group,
     "education_level": repo_get_users_grouped_by_education_level,
     "gender": repo_get_users_grouped_by_gender,

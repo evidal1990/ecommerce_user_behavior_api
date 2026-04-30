@@ -14,6 +14,36 @@ def _fetch_all(query: str):
         conn.close()
 
 
+def get_users_grouped_by_relationship_status():
+    query = dedent(
+        """
+        select
+            relationship_status,
+            COUNT(id) as total_users
+        from
+            aggregations
+        group by
+            relationship_status
+        """
+    )
+    return _fetch_all(query)
+
+
+def get_users_grouped_by_shopping_time_of_day():
+    query = dedent(
+        """
+        select
+            shopping_time_of_day,
+            COUNT(id) as total_users
+        from
+            aggregations
+        group by
+            shopping_time_of_day
+        """
+    )
+    return _fetch_all(query)
+
+
 def get_users_grouped_by_has_children_group():
     query = dedent(
         """
