@@ -36,6 +36,7 @@ from src.repositories import (
     repo_get_top_product_categories,
     repo_get_users_grouped_by_relationship_status,
     repo_get_users_grouped_by_shopping_time_of_day,
+    repo_get_users_grouped_by_employment_status,
 )
 
 _REPO_BY_DIMENSION = {
@@ -76,6 +77,7 @@ _REPO_BY_DIMENSION = {
     "product_category_preference_by_annual_income": repo_get_users_grouped_by_product_category_preference_and_annual_income_group,
     "top_countries": repo_get_top_countries,
     "top_product_categories": repo_get_top_product_categories,
+    "employment_status": repo_get_users_grouped_by_employment_status,
 }
 
 _MULTI_DIMENSION_FIELD_NAMES: dict[str, list[str]] = {

@@ -36,6 +36,7 @@ from src.repositories.user_repository import (
     get_top_product_categories as repo_get_top_product_categories,
     get_users_grouped_by_relationship_status as repo_get_users_grouped_by_relationship_status,
     get_users_grouped_by_shopping_time_of_day as repo_get_users_grouped_by_shopping_time_of_day,
+    get_users_grouped_by_employment_status as repo_get_users_grouped_by_employment_status,
 )
 
 from src.repositories.metrics_repository import (
@@ -104,4 +105,5 @@ __all__ = [
     repo_get_top_product_categories,
     repo_get_users_grouped_by_relationship_status,
     repo_get_users_grouped_by_shopping_time_of_day,
+    repo_get_users_grouped_by_employment_status,
 ]

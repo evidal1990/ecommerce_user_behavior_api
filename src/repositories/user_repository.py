@@ -14,6 +14,20 @@ def _fetch_all(query: str):
         conn.close()
 
 
+def get_users_grouped_by_employment_status():
+    query = dedent(
+        """
+        select
+            employment_status,
+            COUNT(id) as total_users
+        from
+            aggregations
+        group by
+            employment_status
+        """
+    )
+    return _fetch_all(query)
+
 def get_users_grouped_by_relationship_status():
     query = dedent(
         """
